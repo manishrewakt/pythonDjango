@@ -1,0 +1,141 @@
+{% extends "mysports/base.html" %}
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Invoice</title>
+
+</head>
+<body>
+{%block body%}
+{%if order_details.id %}
+<div class="container">
+  <div class="container">
+    <div class="row" style="max-width: 800px;">
+
+        <div class="col-md-12">
+            <div class="text-center">
+<!--                <i class="fa fa-search-plus pull-left icon"></i>-->
+                <h2>Invoice# {{order_details.id}}</h2>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-md-3 col-lg-3 pull-left">
+                    <div class="panel panel-default height">
+                             <div class="panel-heading bg-info text-white"><strong>Billing Details:</strong></div>
+                            <div class="panel-body bg-light">
+                                {{order_details.name}}<br>
+                                {{order_details.address}}<br>
+                                {{order_details.city}}<br>
+                                {{order_details.state}}<br>
+                                <strong>{{order_details.zipcode}}</strong><br>
+                                <strong>{{order_details.email}}</strong><br>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="col-xs-12 col-md-3 col-lg-3">
+                    <div class="panel panel-default height">
+                        <div class="panel-heading bg-info text-white"><strong>Payment Information:</strong></div>
+                            <div class="panel-body bg-light">
+                                Card Name:</strong> Visa<br>
+                                Card Number: ***** 332<br>
+                                Exp Date: 09/2020<br>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="col-xs-12 col-md-3 col-lg-3">
+                    <div class="panel panel-default height">
+                        <div class="panel-heading bg-info text-white"><strong>Order Preferences:</strong></div>
+                            <div class="panel-body bg-light">
+                            Gift: No<br>
+                            Express Delivery:Yes<br>
+                            Insurance: No<br>
+                            Coupon: No<br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-3 col-lg-3 pull-right">
+                    <div class="panel panel-default height">
+                        <div class="panel-heading bg-info text-white"><strong>Shipping Address:</strong></div>
+                        <div class="panel-body bg-light">
+                                {{order_details.name}}<br>
+                                {{order_details.address}}<br>
+                                {{order_details.city}}<br>
+                                {{order_details.state}}<br>
+                                {{order_details.zipcode}}<br>
+                                {{order_details.email}}<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row" style="max-width: 800px;">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="text-center"><strong>Order summary</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed">
+
+                            <thead>
+                                <tr>
+                                    <td><strong>Item Name</strong></td>
+                                    <td class="text-center"><strong>Item Price</strong></td>
+                                    <td class="text-center"><strong>Item Quantity</strong></td>
+                                    <td class="text-right"><strong>Total</strong></td>
+                                </tr>
+                            </thead>
+
+
+
+
+                            <tbody>
+                                {%for key,value in orderedItems.items%}
+                                {%with list=value%}
+                                {%endwith%}
+                                {%with l=list|length%}
+                                {%endwith%}
+                                <tr>
+                                    <td>{{value.1}}</td>
+                                    <td class="text-center">{{value.3}}</td>
+                                    <td class="text-center">{{value.0}}</td>
+                                    <td class="text-right">{{value.2}}</td>
+                                </tr>
+                                {%endfor%}
+                                <tr>
+                                    <td class="emptyrow">
+<!--                                        <i class="fa fa-barcode iconbig"></i>-->
+                                    </td>
+                                    <td class="emptyrow"></td>
+                                    <td class="emptyrow text-center"><strong>Total</strong></td>
+                                    <td class="emptyrow text-right">{{order_details.total}}</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+{%endif%}
+    <script src="{% static '/mysports/clearCart.js' %}" type="text/javascript"></script>
+    <script src="{% static '/mysports/cart.js' %}" type="text/javascript"></script>
+
+    <script type="text/javascript" src="{% static '/mysports/jquery-1.10.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/mysports/bootstrap/js/bootstrap.min.js' %}"</script>
+
+{% endblock %}
+</body>
+</html>
