@@ -1,0 +1,151 @@
+<html lang="en-us" >
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="  crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'mysports/style.css' %}">
+    <link rel="stylesheet" href="{% static 'users/assets/css/style.css' %}">
+
+<!--    <link rel="stylesheet" href="{% static 'mysports/bootstrap/css/bootstrap.min.css' %}">-->
+    <link rel="stylesheet" href="{% static 'mysports/font-awesome/css/font-awesome.min.css' %}">
+
+<title>Product administration | eComm site administration</title>
+
+
+</head>
+
+
+<body>
+<hr>
+<div class="container">
+      <div class="row m-0 text-center">
+        <div class="col-md-12">
+          <h1><u><strong>Product Class Administration:</strong></u></h1>
+        </div>
+      </div>
+      <div>
+           <hr>
+      </div>
+      <div class="row m-0">
+      </div>
+       <div class="row m-0">
+           <Strong>All Categories </Strong>
+
+      </div>
+    <div class="row m-0">
+            {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+<!--                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+                            <li class="error_message">{{ message }}</li>
+                        {% endfor %}
+
+                    </ul>
+                  {% endif %}
+      </div>
+
+      <div class="row m-0">
+            <div class="col-md-6 table-responsive">
+                <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr class="table-info">
+                                    <td class="text-center"><input type="checkbox" name="selectedAllClass" value="0"></td>
+                                    <td class="text-center"><strong>Class</strong></td>
+                                    <td class="text-center"><strong>Category Name</strong></td>
+                                    <td class="text-center"><strong>Description</strong></td>
+                                    <td class="text-center"><strong>Created By</strong></td>
+<!--                                    <td class="text-center"><strong>Buy Again</strong></td>-->
+                                    <td class="text-center">Action</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                {%for category in listOfCategory%}
+                                    <tr>
+                                        <td class="text-center">
+                                           <input type="checkbox" name="selectedClass" value="{{category.id}}">
+                                        </td>
+                                        <td class="text-center">{{category.productClass}}</td>
+                                        <td class="text-center">{{category.name}}</td>
+                                        <td class="text-center">{{category.categoryDescription}}</td>
+                                        <td class="text-center">{{category.createdBy}}</td>
+<!--                                        <td class="text-center"><button id="{{orderDetail.itemId.id}}" class="btn atc btn-sm btn-warning">Add to cart</button>-->
+                                        <td>
+                                            <a href="/product/inactivateProductCategory/{{category.id}}/{{request.session.userId}}/">Inactivate</a>
+                                        </td>
+
+                                    </tr>
+
+                                {%endfor%}
+
+                            </tbody>
+                </table>
+                <a href="/users/productAdminHome/{{request.session.userId}}/">
+                        Back to main admin page
+                    </a>
+            </div>
+        <div class="col-md-6">
+                <div class="vertical"></div>
+                <fieldset class="border p-2">
+                    <legend>Do more:</legend>
+                    <form class="form-inline" target="_self" action="/product/searchProductClass/{{request.session.userId}}/" method="POST">
+<!--                    <form class="card card-sm"  style="height:40px;" action="/index">-->
+                 {% csrf_token %}
+                <div class="form-group">
+                            <input class="form-control search-field"
+                                    placeholder="Search product class"
+                                   type="search" id="search-field" name='search_item' aria-labelledby="search-button">
+
+                            <button type="submit" class="btn btn-info" id="search-button">
+                                <i class="fa fa-search"></i></button>
+
+
+                        </div>
+
+                    </form>
+                    <br>
+<!--                   <button type="submit" class="btn btn-link">View All product classes added by me</button>-->
+                    <a class="btn btn-link"  href="/product/listProductClass/{{request.session.userId}}/" role="button">
+                        View All product classes added by me</a>
+                    <br>
+<!--                    <a class="btn btn-link"  href="/product/inactivateProductClass/0/{{request.session.userId}}/">-->
+<!--                       Inactivate all product classes added by me-->
+<!--                    </a>-->
+<!--                    <br>-->
+
+                    <a class="btn btn-link"  href="/product/bulkUploadProductClass/">
+                       Bulk upload of product class
+                    </a>
+
+<!--                    <button type="button" class="btn btn-link">Bulk upload of the product classes</button>-->
+                    <br>
+                    <a class="btn btn-link"  href="/product/listProductCategoryClassWise/{{request.session.userId}}/">
+                       View classes wise List of category
+                    </a>
+
+                    <br>
+                    <button type="button" class="btn btn-link">View classes wise List of products</button>
+                </fieldset>
+              </div>
+            </form>
+        </div>
+
+      </div>
+
+
+</body>
+</html>

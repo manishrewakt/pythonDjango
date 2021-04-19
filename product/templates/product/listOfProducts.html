@@ -1,0 +1,185 @@
+
+<html lang="en-us" >
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="  crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'mysports/style.css' %}">
+    <link rel="stylesheet" href="{% static 'users/assets/css/style.css' %}">
+
+<!--    <link rel="stylesheet" href="{% static 'mysports/bootstrap/css/bootstrap.min.css' %}">-->
+    <link rel="stylesheet" href="{% static 'mysports/font-awesome/css/font-awesome.min.css' %}">
+
+<title>Product administration | eComm site administration</title>
+
+
+</head>
+
+
+<body>
+<hr>
+<div class="container">
+      <div class="row m-0 text-center">
+        <div class="col-md-12">
+          <h1><u><strong>Product Administration:</strong></u></h1>
+        </div>
+      </div>
+      <div>
+           <hr>
+      </div>
+      <div class="row m-0">
+      </div>
+
+    <div class="row m-0">
+            {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+<!--                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+                            <li class="error_message">{{ message }}</li>
+                        {% endfor %}
+
+                    </ul>
+                  {% endif %}
+      </div>
+
+      <div class="row m-0">
+
+          <div class="col-md-2">
+                    <div>
+                                 <p></p>
+                                 <a href="/product/addProductClass/">Product Class</a>
+                                 <br>
+                                 <p></p>
+                                 <a href="/product/addProductCategory/">Product Catagory</a>
+                                 <br>
+                                 <p></p>
+                                 <a href="/product/addProduct/">Product</a>
+
+                     </div>
+                </div>
+
+
+            <div class="col-md-6 table-responsive">
+                <div class="row m-0">
+                    <Strong><h3>All Products</h3></Strong>
+
+                    </div>
+                <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr class="table-info">
+                                    <td class="text-center"><input type="checkbox" name="selectedAllClass" value="0" id="selectedAllClass"></td>
+                                    <td class="text-center"><strong>Product Name</strong></td>
+                                    <td class="text-center"><strong>Description</strong></td>
+<!--                                    <td class="text-center"><strong>Class</strong></td>-->
+                                    <td class="text-center"><strong>Created By</strong></td>
+<!--                                    <td class="text-center"><strong>Buy Again</strong></td>-->
+                                    <td class="text-center">Action</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+            {%for product in listOfProducts%}
+                                    <tr>
+                                        <td class="text-center">
+                                           <input type="checkbox" name="selectedClass" value="{{product.id}}">
+                                        </td>
+                                        <td class="text-center">{{product.name}}</td>
+                                        <td class="text-center">{{product.prodDescription}}</td>
+<!--                                        <td class="text-center">{{category.productClass}}</td>-->
+                                        <td class="text-center">{{product.createdBy}}</td>
+<!--                                        <td class="text-center"><button id="{{orderDetail.itemId.id}}" class="btn atc btn-sm btn-warning">Add to cart</button>-->
+                                        <td>
+                                            <a href="/product/inactivateProduct/{{product.id}}/{{request.session.userId}}/">Inactivate</a>
+                                        </td>
+
+                                    </tr>
+
+                                {%endfor%}
+                            </tbody>
+                </table>
+                 <a href="/product/inactivateProduct/0/{{request.session.userId}}/">
+                        <button type="button" class="btn btn-danger" id="inactivatebtn" name="inactivatebtn" disabled>Inactivate All</button>
+                    </a>
+                    <a href="/users/productAdminHome/{{request.session.userId}}/">
+                        Back to main admin page
+                    </a>
+            </div>
+        <div class="col-md-4">
+                <div class="vertical"></div>
+                <fieldset class="border p-2">
+                    <legend>Do more:</legend>
+                    <form class="form-inline" target="_self" action="/product/searchProduct/{{request.session.userId}}/" method="POST">
+<!--                    <form class="card card-sm"  style="height:40px;" action="/index">-->
+                 {% csrf_token %}
+                <div class="form-group">
+                            <input class="form-control search-field"
+                                    placeholder="Search product class"
+                                   type="search" id="search-field" name='search_item' aria-labelledby="search-button">
+
+                            <button type="submit" class="btn btn-info" id="search-button">
+                                <i class="fa fa-search"></i></button>
+
+
+                        </div>
+
+                    </form>
+
+                   <a class="btn btn-link"  href="/product/listOfProducts/{{request.session.userId}}/" role="button">
+                       View All products</a>
+                    <br>
+                    <a class="btn btn-link"  href="/product/bulkUploadProducts/">
+                       Bulk upload of products
+                    </a>
+                </fieldset>
+              </div>
+            </form>
+        </div>
+
+      </div>
+
+
+</body>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#selectedAllClass').click(function() {
+        var checked = this.checked;
+        $('input[type="checkbox"]').each(function() {
+          this.checked = checked;
+        });
+        if ($(this).is(':checked')) {
+            $('#inactivatebtn').removeAttr('disabled'); //enable input
+        } else {
+            $('#inactivatebtn').attr('disabled', true); //disable input
+        }
+
+
+      })
+    });
+</script>
+<script type="text/javascript">
+$('#toggle').click(function () {
+    //check if checkbox is checked
+    if ($(this).is(':checked')) {
+
+        $('#sendNewSms').removeAttr('disabled'); //enable input
+
+    } else {
+        $('#sendNewSms').attr('disabled', true); //disable input
+    }
+});
+</script>
+
+</html>

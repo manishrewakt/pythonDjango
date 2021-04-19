@@ -1,0 +1,229 @@
+<html lang="en-us" >
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="  crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'mysports/style.css' %}">
+    <link rel="stylesheet" href="{% static 'users/assets/css/style.css' %}">
+
+<!--    <link rel="stylesheet" href="{% static 'mysports/bootstrap/css/bootstrap.min.css' %}">-->
+    <link rel="stylesheet" href="{% static 'mysports/font-awesome/css/font-awesome.min.css' %}">
+
+<title>Product administration | eComm site administration</title>
+
+
+</head>
+
+
+<body>
+<hr>
+<div class="container">
+      <div class="row m-0 text-center">
+        <div class="col-md-12">
+          <h1><u><strong>Product Administration:Add a Product</strong></u></h1>
+          <hr>
+        </div>
+      </div>
+      <div class="row m-0">
+        <div class="col-md-2">
+            <div>
+                         <p></p>
+                         <a href="/product/addProductClass/">Product Class</a>
+                         <br>
+                         <p></p>
+                         <a href="/product/addProductCategory/">Product Catagory</a>
+                         <br>
+                         <p></p>
+                         <a href="/product/addProduct/">Product</a>
+
+             </div>
+        </div>
+        <div class="col-md-7">
+            <form class="justify-content-center" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div>
+                                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+<!--                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+                            <li class="error_message">{{ message }}</li>
+                        {% endfor %}
+
+                    </ul>
+                  {% endif %}
+              </div>
+              <div class="row m-0" >
+                  <div class="col-md-6">
+                      <input type="text" class="form-control" id="name" name='name' placeholder="Product Name" required>
+                    </div>
+                   <div class="col-md-6">
+                      <div class="checkbox">
+                        <label><input type="checkbox" id="isActive" name="active"> is Active</label>
+                      </div>
+                   </div>
+               </div>
+               <hr>
+
+                <div class="row m-0" >
+                 <div class="col-md-12">
+                <label for="description">Description:</label>
+                  <textarea class="form-control" id="description" placeholder="Product Description" name="description">
+                  </textarea>
+                </div>
+                </div>
+
+                <hr>
+                <div class="row m-0" >
+                    <div class="col-md-5">
+                              {{ form1.as_p }}
+                    </div>
+                   <div class="col-md-4">
+                          {{ form3.as_p }}
+                   </div>
+                   <div class="col-md-3">
+                      <input type="text" class="form-control" id="batchNumber" name='batchNumber' placeholder="Batch Number">
+                    </div>
+                  </div>
+                <hr>
+                  <div class="row m-0" >
+                    <div class="col-md-4">
+                              <input type='number' size="6" id="mrp" name='mrp' placeholder="MRP" required>
+                        </div>
+                    <div class="col-md-4">
+                            <div class="col-sm-10">
+                              {{ form2.as_p }}
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                            <div class="col-sm-10">
+                              {{ form4.as_p }}
+                            </div>
+                    </div>
+                  </div>
+                  <hr>
+                    <div class="row m-0" >
+                    <div class="col-md-6">
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="isDiscountAvailable" name="isDiscountAvailable"> Is Discount Available</label>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                         Discount Percent:
+                         <input type="number" id="discount" name='discount' size="10"  min="0" max="100" placeholder="Discount Percent">
+                     </div>
+
+                </div>
+
+                <hr>
+                <div class="form-group">
+                <label class="control-label col-sm-2" for="productSpecification">Specification:</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="productSpecification" placeholder="Product Specification" name="productSpecification">
+                  </textarea>
+                </div>
+              </div>
+              <hr>
+              <div class="row m-0" >
+                  <div class="col-md-6">
+                        <label for="name">Manufactured on:</label>
+                        <div>
+                          <input type="date" class="form-control" id="manufactureDate" name='manufactureDate' placeholder="Manufacture Date">
+                        </div>
+                    </div>
+                  <div class="col-md-6">
+                      <label  for="name">Expires on:</label>
+                        <div>
+                          <input type="date" class="form-control" id="expiryDate" name='expiryDate'>
+                        </div>
+                    </div>
+                   </div>
+              <div class="row m-0" >
+               <hr>
+              </div>
+              <div class="row m-0" >
+                  <div class="col-md-4">
+                        <label for="name">Upload Image:</label>
+                  </div>
+<!--                  <div class="col-md-8">-->
+<!--                          <input type="file" id="imageFile" name='imageFile' required>-->
+<!--                  </div>-->
+              </div>
+
+
+
+
+              <hr>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-info btn-sm" name="save_display">Save</button>
+                    <button type="submit" class="btn btn-info btn-sm" name="save_add">Save and Add Another</button>
+                     <a href="/users/productAdminHome/{{request.session.userId}}/">
+                        Back to main admin page
+                    </a>
+                </div>
+              </div>
+            </form>
+
+        </div>
+        <div class="col-md-3">
+                <div class="vertical"></div>
+                <fieldset class="border p-2">
+                    <legend>Do more:</legend>
+                    <form class="form-inline" target="_self" action="/product/searchProduct/{{request.session.userId}}/" method="POST">
+<!--                    <form class="card card-sm"  style="height:40px;" action="/index">-->
+                 {% csrf_token %}
+
+<!--                  {% if messages %}-->
+<!--                    <ul class="messages">-->
+<!--                        {% for message in messages %}-->
+<!--&lt;!&ndash;                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>&ndash;&gt;-->
+<!--                            <li class="error_message">{{ message }}</li>-->
+<!--                        {% endfor %}-->
+
+<!--                    </ul>-->
+<!--                  {% endif %}-->
+                        <div class="form-group">
+                            <input class="form-control search-field"
+                                    placeholder="Search product"
+                                   type="search" id="search-field" name='search_item' aria-labelledby="search-button">
+
+                            <button type="submit" class="btn btn-info" id="search-button">
+                                <i class="fa fa-search"></i></button>
+
+
+                        </div>
+
+                    </form>
+                    <br>
+
+                    <a class="btn btn-link"  href="/product/listOfProducts/{{request.session.userId}}/" role="button">
+                       View All products</a>
+                    <br>
+                    <a class="btn btn-link"  href="/product/bulkUploadProducts/">
+                       Bulk upload of products
+                    </a>
+
+
+                </fieldset>
+              </div>
+            </form>
+        </div>
+
+      </div>
+
+
+</body>
+</html>
