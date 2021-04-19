@@ -1,0 +1,124 @@
+{% extends "mysports/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  {%block body%}
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/index">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="{{request.get_full_path}}">User Account</a></li>
+
+
+  </ol>
+</nav>
+    <div class="div-center">
+      <strong>Account Details </strong>
+       {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+<!--                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+                            <li class="error_message">{{ message }}</li>
+                        {% endfor %}
+
+                    </ul>
+                  {% endif %}
+        <p></p>
+    </div>
+    <div class="div-center" style="display:flex;width:1000px">
+        <div style="width: 50%;">
+            <div class="card">
+              <div class="card-header  bg bg-dark" style="clear:both;">
+                  <p style="float:left;color:white;height:3px">Contact Details</p>
+              </div>
+              <div class="card-body">
+                  <div class="table-responsive">
+                                <table class="table">
+                                        <tr>
+                                            <td class="text-left">
+                                                <strong>
+                                                    <u>Personal Details:</u>
+                                                </strong>
+                                                <br>
+                                                {{user.first_name}}
+                                                {{user.last_name}}
+                                                <br>
+                                                {{user.email}}
+                                                <br>
+                                                {{user.mobile}}
+                                            </td>
+                                            <td class="text-left">
+<!--                                                <button  class="btn btn-info btn-sm" style="width:160px">Edit Personal Details</button>-->
+                                                <a class="btn btn-link"  href="/users/updateUserDetails/{{user.id}}/1" role="button">Edit</a>
+                                            </td>
+                                        </tr>
+                                       {% for address in userAddresses%}
+                                        <tr>
+                                            <td class="text-left">
+                                                <strong>
+                                                    <u>{{address.addressType|capfirst}}:</u>
+                                                </strong>
+                                                <br>
+                                                {{address.address1}}
+                                                {{address.address2}}
+                                                <br>
+                                                {{address.city}}
+                                                <br>
+                                                {{address.state}}
+                                                {{address.country}}
+                                                {{address.zip}}
+                                            </td>
+                                            <td class="text-left">
+<!--                                                <button type="submit" class="btn btn-info btn-sm" style="width:160px">Edit {{address.addressType|capfirst}} Address</button>-->
+<!--                                                <a class="btn btn-info btn-sm" style="width:160px" href="#" role="button">Edit {{address.addressType|capfirst}} Address</a>-->
+<!--                                                <a class="btn btn-info btn-sm" style="width:160px" href="/users/updateUserDetails/{{address.id}}/2" role="button">Edit {{address.addressType|capfirst}} Address</a>-->
+<!--                                                <a class="btn btn-info btn-sm" style="width:160px" href="/users/updateUserDetails/{{address.id}}/2" role="button">Add {{address.addressType|capfirst}} Address</a>-->
+                                                <a class="btn btn-link"  href="/users/updateUserDetails/{{address.id}}/2" role="button">Edit </a>
+                                               {% if address.addressType == 'shipping' %}
+                                                <a class="btn btn-link"  href="/users/deleteUserShippingAddress/{{address.id}}" role="button">Delete</a>
+                                               {%endif%}
+                                            </td>
+                                        </tr>
+                                        {%endfor%}
+                                        <tr>
+                                            <td class="text-left">
+                                                <a class="btn btn-info btn-sm"  href="/users/addUserShippingAddress/{{user.id}}" role="button">Add new shipping address</a>
+
+                                            </td>
+                                        </tr>
+                                </table>
+                  </div>
+              </div >
+            </div>
+        </div>
+        <div style="flex-grow:1;">
+
+            <div class="card">
+              <div class="card-header  bg bg-dark" style="clear:both;">
+                  <p style="float:left;color:white;height:3px">Orders</p>
+              </div>
+              <div class="card-body">
+                  <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    {% for order in orders%}
+                                        <tr>
+                                            <td class="text-left">
+                                                <a href="/users/specificUserOrder/{{user.id}}/{{order.id}}" class="btn btn-warning btn-sm">View - {{order.id}}</a>
+                                                <br>
+                                            </td>
+                                        </tr>
+                                    {%endfor%}
+                                </table>
+                  </div>
+
+        </div>
+    </div>
+    <script src="{% static '/mysports/cart.js' %}" type="text/javascript"></script>
+    <script src="{% static '/mysports/checkOut.js' %}" type="text/javascript"></script>
+{% endblock %}
+</body>
+</html>

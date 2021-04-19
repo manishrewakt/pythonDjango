@@ -1,0 +1,93 @@
+{% extends "mysports/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  {%block body%}
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/index">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">User Orders</li>
+  </ol>
+</nav>
+   <div class="container div-center">
+    <div class="row m-0">
+        <strong><u>Previous Orders:</u></strong>
+        <hr/>
+    </div>
+<!--    <div class="div-center">-->
+<!--      <hr/>-->
+<!--      <strong>Previous Orders</strong>-->
+<!--      <hr/>-->
+<!--    </div>-->
+  {% for order in orders%}
+<!--    <div class="div-center">-->
+    <div class="card border-success mb-3" >
+      <div class="card-header bg bg-info" style="clear:both;">
+          <p style="float:left;color:white">Order#{{order.id}} was placed on: {{order.orderDate}}</p>
+          <p style="float:right;color:white">Total Order Value: {{order.total}}</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+
+                        <table class="table table-condensed table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <td class="text-center"><strong>Item Name</strong></td>
+                                    <td class="text-center"><strong>Item Price</strong></td>
+                                    <td class="text-center"><strong>Item Quantity</strong></td>
+<!--                                    <td class="text-center"><strong>Buy Again</strong></td>-->
+                                    <td class="text-center"></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for orderDetail in orderDetails%}
+                                    {%if order.id == orderDetail.orderId.id %}
+                                    <tr>
+                                        <td class="text-center">{{orderDetail.name}}</td>
+                                        <td class="text-center">{{orderDetail.sellingPrice}}</td>
+                                        <td class="text-center">{{orderDetail.itemQuantity}}</td>
+<!--                                        <td class="text-center"><button id="{{orderDetail.itemId.id}}" class="btn atc btn-sm btn-warning">Add to cart</button>-->
+                                        <td><a class="text-center"  href='/detail/{{orderDetail.itemId.id}}'>View product</a></td>
+                                            <input type="hidden" id="nm{{orderDetail.itemId.id}}" value="{{ orderDetail.name }}"></input>
+                                            <input type="hidden" id="price{{orderDetail.itemId.id}}" class="card-text" value="{{ orderDetail.itemId.sellingPrice }}"></input>
+<!--                                            <div id="PI-{{orderDetail.itemId.id}}" class="card-text">{{orderDetail.itemId.id}}</div>-->
+
+                                        </td>
+
+                                    </tr>
+                                    {%endif%}
+                                {%endfor%}
+                            </tbody>
+                        </table>
+
+        </div>
+        <div align="center">
+          <a class="btn btn-warning btn-sm"  href="/repeatTheOrder/{{order.id}}" role="button">Repeat the order</a>
+        </div>
+<!--          <button id="{{orderDetail.orderId.id}}" class="btn atc btn-info btn-sm"></button>-->
+      </div>
+    </div>
+<!--  </div>-->
+  {%endfor%}
+
+<!--    <div class="card">-->
+<!--        <div class="card-header">-->
+<!--          Featured-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--          <h5 class="card-title">Special title treatment</h5>-->
+<!--          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+<!--          <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--        </div>-->
+<!--      </div>-->
+
+    <script src="{% static '/mysports/cart.js' %}" type="text/javascript"></script>
+    <script src="{% static '/mysports/checkOut.js' %}" type="text/javascript"></script>
+{% endblock %}
+</body>
+</html>

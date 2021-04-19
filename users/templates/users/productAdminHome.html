@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="  crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'mysports/style.css' %}">
+    <link rel="stylesheet" href="{% static 'users/assets/css/style.css' %}">
+
+<!--    <link rel="stylesheet" href="{% static 'mysports/bootstrap/css/bootstrap.min.css' %}">-->
+    <link rel="stylesheet" href="{% static 'mysports/font-awesome/css/font-awesome.min.css' %}">
+
+<title>Product administration | eComm site administration</title>
+
+
+</head>
+
+
+<body>
+
+<!-- Container -->
+<hr>
+
+<div class="container">
+      <div class="row m-0">
+        <div class="col-md-12">
+          <h1><u><strong>Product Administration:</strong></u></h1>
+        </div>
+      </div>
+       <div class="row m-0">
+          <hr>
+      </div>
+      <div class="row m-0">
+        <div class="col-md-6">
+             <div class="table-responsive">
+
+                        <table class="table table-condensed table-sm table-hover">
+                            <thead class="table-info">
+                                <tr >
+                                    <td class="text-center" colspan="3">Product Management</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                      <tr>
+                                       <td class="text-left">Product Class</td>
+                                       <td class="text-left"><a href="/product/addProductClass/" class="fa fa-plus-circle">Add</a></td>
+
+<!--                                       <td><a href="/admin/product/product/" class="changelink">Change</a></td>-->
+<!--                                      <td><a href="/admin/product/product/" class="changelink">Delete</a></td>-->
+                                      <td class="text-right">
+                                          <a href="/product/listProductClass/{{request.session.userId}}">
+                                          <button type="submit" class="btn btn-warning btn-sm">Click to View/Change/Delete</button>
+                                          </a>
+                                      </td>
+                                    </tr>
+
+                                    <tr>
+                                       <td class="text-left">Product Catagory</td>
+                                      <td class="text-left"><a href="/product/addProductCategory/" class="fa fa-plus-circle">Add</a></td>
+<!--                                       <td><a href="/admin/product/product/" class="changelink">Change</a></td>-->
+<!--                                      <td><a href="/admin/product/product/" class="changelink">Delete</a></td>-->
+                                      <td class="text-right">
+                                          <a href="/product/listProductCategory/{{request.session.userId}}">
+                                            <button type="submit" class="btn btn-warning btn-sm">Click to View/Change/Delete</button>
+                                          </a>
+                                      </td>
+                                    </tr>
+                                    <tr class="text-right">
+                                       <td class="text-left">Product</td>
+                                       <td class="text-left"><a href="/product/addProduct/" class="fa fa-plus-circle" >Add</a></td>
+<!--                                       <td><a href="/admin/product/product/" class="changelink">Change</a></td>-->
+<!--                                      <td><a href="/admin/product/product/" class="changelink">Delete</a></td>-->
+                                      <td class="text-right">
+                                          <a href="/product/listOfProducts/{{request.session.userId}}">
+                                          <button type="submit" class="btn btn-warning btn-sm">Click to View/Change/Delete</button>
+                                          </a>
+                                      </td>
+
+                                    </tr>
+                            </tbody>
+
+                        </table>
+         </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- END Container -->
+</body>
+
+<script type="text/javascript">
+var topButton = document.getElementById("backToTop");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    topButton.style.display='block';
+  } else {
+    topButton.style.display='none';
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
+</html>
